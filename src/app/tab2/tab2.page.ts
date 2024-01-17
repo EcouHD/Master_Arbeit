@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+declare var webgazer: any;
 
 @Component({
   selector: 'app-tab2',
@@ -8,5 +9,9 @@ import { Component } from '@angular/core';
 export class Tab2Page {
 
   constructor() {}
+
+  startWebgazer() {
+    webgazer.begin();
+  }
 
 }
