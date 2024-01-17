@@ -1,0 +1,7 @@
+{
+  "name": "Gazetracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
