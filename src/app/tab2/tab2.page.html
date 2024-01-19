@@ -13,11 +13,36 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
-    <ion-button (click)="startWebgazer()">
-      Start
-      <ion-icon slot="start" name="play"></ion-icon>
-    </ion-button>
-  </ion-content>
-
+  <ion-grid class="ion-align-items-center">
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <ion-label id="info_label">Currently not calibrated and no survey loaded.
+          Continue with calibration.</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <ion-button shape="round" (click)="showTutorial()">
+          Tutorial
+          <ion-icon slot="start" name="easel"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <ion-button shape="round" (click)="showInformation()">
+          Information
+          <ion-icon slot="start" name="information-circle"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <ion-button color="danger" shape="round" (click)="deleteLocalData()">
+          Delete local data
+          <ion-icon slot="start" name="trash"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -13,4 +13,23 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-grid class="ion-align-items-center">
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <ion-button shape="round" (click)="startCalibration()">
+          Start calibration
+          <ion-icon slot="start" name="play"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <ion-button shape="round" (click)="deleteCalibration()">
+          Delelte calibration
+          <ion-icon slot="start" name="trash"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

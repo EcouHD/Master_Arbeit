@@ -14,4 +14,15 @@ export class Tab2Page {
     webgazer.begin();
   }
 
+  showTutorial() {
+    
+  }
+
+  deleteLocalData() {
+
+  }
+
+  showInformation() {
+
+  }
 }

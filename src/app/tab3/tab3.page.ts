@@ -9,4 +9,12 @@ export class Tab3Page {
 
   constructor() {}
 
+  loadSurvey() {
+
+  }
+
+  startSurvey() {
+    
+  }
+
 }

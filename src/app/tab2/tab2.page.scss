@@ -1,0 +1,17 @@
+ion-col {
+    border: 2px solid #73AD21;
+}
+
+
+@media(min-width:768px) {
+    ion-button {
+        width: 300px;
+    }
+}
+
+@media(max-width:768px) {
+    ion-button {
+        width: 70%;
+        max-width: 300px;
+    }
+}
