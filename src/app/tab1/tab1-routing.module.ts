@@ -6,6 +6,22 @@ const routes: Routes = [
   {
     path: '',
     component: Tab1Page,
+    children: [
+      {
+        path: '',
+        redirectTo: 'menu',
+        pathMatch: 'full'
+      },
+      {
+        path: 'calibration',
+        loadChildren: () => import('./calibration/calibration.module').then(m => m.CalibrationPageModule)
+      },
+      {
+        path: 'menu',
+        loadChildren: () => import('./menu/menu.module').then(m => m.MenuPageModule)
+      }
+
+    ]
   }
 ];
 
@@ -13,4 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class Tab1PageRoutingModule {}
+export class Tab1PageRoutingModule { }

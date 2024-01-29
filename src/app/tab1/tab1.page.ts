@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { MenuComponent } from './menu/menu.component';
+import { MenuPage } from './menu/menu.page';
+import { NavController, Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -8,9 +9,14 @@ import { MenuComponent } from './menu/menu.component';
 })
 export class Tab1Page {
 
-  component = MenuComponent;
+  component = MenuPage;
 
-  constructor() {}
+  constructor(private platform: Platform, private navController: NavController) {
+    this.platform.backButton.subscribeWithPriority(10, ()=> {
+      console.log("Handler called!");
+      navController.back();
+    });
+  }
 
   startCalibration() {
     

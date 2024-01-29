@@ -2,16 +2,20 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-calibration',
-  templateUrl: './calibration.component.html',
-  styleUrls: ['./calibration.component.scss'],
+  templateUrl: './calibration.page.html',
+  styleUrls: ['./calibration.page.scss'],
 })
-export class CalibrationComponent implements OnInit {
+export class CalibrationPage implements OnInit {
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
+
 
   buttonClicked(id: any) {
     console.log("Button " + id + " pressed!")
   }
+
 }
+
