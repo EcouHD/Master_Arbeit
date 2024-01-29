@@ -1,0 +1,78 @@
+ion-button[shape=circle] {
+    --background: yellow;
+    --border-radius: 50%;
+    opacity: 0.5;
+    width: 14px;
+    height: 14px;
+}
+
+ion-grid {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    display: grid;
+}
+
+#CalibrationPoint {
+    opacity: 0.0;
+}
+#Pt1 {
+    position:absolute;
+    margin: 0;
+    top: 5%;
+    left: 1%;
+    text-align: start;
+}
+
+#Pt2 {
+    position:absolute;
+    margin: 0;
+    top: 5%;
+    right: 4%;
+    text-align: end;
+}
+
+#Pt3, #Pt6, #CalibrationPoint {
+position: absolute;
+margin: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#Pt4 {
+    position:absolute;
+    margin: 0;
+    top: 50%;
+    left: 1%;
+    transform: translate(0%, -50%);
+    text-align: start;
+}
+
+#Pt5 {
+    position:absolute;
+    margin: 0;
+    top: 50%;
+    right: 5%;
+    transform: translate(0%, -50%);
+    text-align: end;
+}
+
+#Pt7 {
+    position: absolute;
+    margin: 0;
+    top: 90%;
+    left: 1%;
+    transform: translate(0%, -90%);
+    text-align: start;
+}
+#Pt8 {
+    position: absolute;
+    margin: 0;
+    top: 90%;
+    right: 4%;
+    transform: translate(0%, -90%);
+    text-align: end;
+
+}

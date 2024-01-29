@@ -4,9 +4,14 @@ import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
   {
-    path: 'tabs',
+    path: '',
     component: TabsPage,
     children: [
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      },
       {
         path: 'calibration',
         loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
@@ -18,19 +23,9 @@ const routes: Routes = [
       {
         path: 'survey',
         loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
-      },
-      {
-        path: '',
-        redirectTo: '/tabs/home',
-        pathMatch: 'full'
       }
     ]
   },
-  {
-    path: '',
-    redirectTo: '/tabs/home',
-    pathMatch: 'full'
-  }
 ];
 
 @NgModule({
