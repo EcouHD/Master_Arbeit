@@ -6,22 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: Tab1Page,
-    children: [
-      {
-        path: '',
-        redirectTo: 'menu',
-        pathMatch: 'full'
-      },
-      {
-        path: 'calibration',
-        loadChildren: () => import('./calibration/calibration.module').then(m => m.CalibrationPageModule)
-      },
-      {
-        path: 'menu',
-        loadChildren: () => import('./menu/menu.module').then(m => m.MenuPageModule)
-      }
-
-    ]
+  },
+  {
+    path: 'start',
+    loadChildren: () => import('../tab1/calibration/calibration.module').then(m => m.CalibrationPageModule)
   }
 ];
 

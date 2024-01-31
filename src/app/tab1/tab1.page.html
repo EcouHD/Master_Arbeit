@@ -1,3 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Calibration
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-grid class="ion-align-items-center">
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+          <ion-button routerLink="/calibration/start" shape="round">
+            Start calibration
+            <ion-icon slot="start" name="play"></ion-icon>
+          </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <ion-button shape="round">
+          Delete calibration
+          <ion-icon slot="start" name="trash"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

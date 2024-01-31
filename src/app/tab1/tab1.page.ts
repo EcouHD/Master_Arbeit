@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { MenuPage } from './menu/menu.page';
 import { NavController, Platform } from '@ionic/angular';
 
 @Component({
@@ -8,8 +7,6 @@ import { NavController, Platform } from '@ionic/angular';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-
-  component = MenuPage;
 
   constructor(private platform: Platform, private navController: NavController) {
     this.platform.backButton.subscribeWithPriority(10, ()=> {
