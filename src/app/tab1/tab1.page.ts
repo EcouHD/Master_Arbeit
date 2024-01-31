@@ -8,12 +8,7 @@ import { NavController, Platform } from '@ionic/angular';
 })
 export class Tab1Page {
 
-  constructor(private platform: Platform, private navController: NavController) {
-    this.platform.backButton.subscribeWithPriority(10, ()=> {
-      console.log("Handler called!");
-      navController.back();
-    });
-  }
+  constructor() { }
 
   startCalibration() {
     

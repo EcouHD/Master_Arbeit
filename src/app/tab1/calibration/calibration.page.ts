@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-calibration',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalibrationPage implements OnInit {
 
-  constructor() { }
+  navController: any;
+
+  constructor(navController: NavController) { this.navController = navController}
 
   ngOnInit() {
   }
@@ -17,5 +20,8 @@ export class CalibrationPage implements OnInit {
     console.log("Button " + id + " pressed!")
   }
 
+  goBack() {
+    this.navController.back();
+  }
 }
 
