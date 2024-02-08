@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: 'start',
-    loadChildren: () => import('../tab1/calibration/calibration.module').then(m => m.CalibrationPageModule)
+    loadChildren: () => import('./calibration/calibration.module').then(m => m.CalibrationPageModule)
   }
 ];
 

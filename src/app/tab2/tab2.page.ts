@@ -19,7 +19,7 @@ export class Tab2Page {
   }
 
   deleteLocalData() {
-
+    console.log("deleteLocalData() is called!")
   }
 
   showInformation() {

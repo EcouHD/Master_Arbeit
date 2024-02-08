@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="goBack()">
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-buttons>
+    <ion-title>Information</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div class="container_buttons">
+    @for(i of [1,2,3,4,5,6,7,8,9]; track $index) {
+    <div #dot class="dot show" [attr.data-index]="i" (click)="animate($index)"></div>
+    }
+  </div>
+</ion-content>
