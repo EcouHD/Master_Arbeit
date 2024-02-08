@@ -19,16 +19,16 @@ export class AppComponent {
     console.log("height: " + window.innerHeight + " width: " + window.innerWidth);
 
     window.onload = async function() {
-      await webgazer.setRegression('ridge')
+      await webgazer.setRegression('weightedRidge')
       .setGazeListener(function(data: any, clock: any) {
         if(data == null) {
           return;
         }
         webgazer.util.bound(data);
-        console.log("exact points x: " + data.x + " y: " + data.y);
       })
       .saveDataAcrossSessions(true)
-      .begin().pause();
+      .begin();
+      await webgazer.pause()
     }
   }
 
