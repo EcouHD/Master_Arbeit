@@ -1,77 +1,127 @@
-ion-button[shape=circle] {
-    --background: yellow;
-    --border-radius: 50%;
-    width: 14px;
-    height: 14px;
-}
+.dot {
+    background-color: silver;
+    border-radius: 50%;
+    height: 1rem;
+    width:1rem;
+    margin-bottom:.5rem;
+  }
 
-ion-grid {
-    width: 100%;
+  @keyframes fade {
+    0% {
+      opacity: 1;
+      background:silver;
+    }
+    99% {
+      opacity: 0;
+      background:silver;
+    }
+    100%
+    {
+      opacity:1;
+    }
+  }
+  @keyframes fade1 {
+    0% {
+      opacity: 1;
+      background:silver;
+    }
+    99% {
+      opacity: 0;
+      background:silver;
+    }
+    100%
+    {
+      opacity:1;
+    }
+  }
+  .dot.calibration{
+    display: none;
+  }
+  .dot.state1{
+    background-color:yellow;
+    opacity: 0.2;
+    display: inline;
+  }
+  .dot.state2{
+    background:yellow;
+    opacity: 0.4;
+ 
+    animation:
+    .5s 1 alternate fade;
+  }
+  .dot.state3{
+    background-color:yellow;
+    opacity: 0.6;
+
+    animation:
+    .5s 1 alternate fade1;
+  }
+  .dot.state4{
+    background-color:yellow;
+    opacity: 0.8;
+
+    animation:
+    .5s 1 alternate fade;
+  }
+  .dot.state5{
+    background-color:yellow;
+    opacity: 0.9;
+
+    animation:
+    .5s 1 alternate fade1;
+  }
+  .dot.stateFinished{
+    background-color:red;
+
+    animation:
+    .5s 1 alternate fade;
+  }
+
+  .dot:nth-child(1) {
+    grid-area: first;
+  }
+
+  .dot:nth-child(2) {
+    grid-area: second;
+    justify-self: end;
+  }
+  .dot:nth-child(3) {
+    grid-area: third;
+    justify-self: center;
+  }
+  .dot:nth-child(4) {
+    grid-area: fourth;
+  }
+  .dot:nth-child(5) {
+    grid-area: fifth;
+    justify-self: center;
+  }
+  .dot:nth-child(6) {
+    grid-area: six;
+    justify-self: end;
+
+  }
+  .dot:nth-child(7) {
+    grid-area: seven;
+    justify-self: center;
+  }
+  .dot:nth-child(8) {
+    grid-area: eigth;
+  }
+  .dot:nth-child(9) {
+    grid-area: nine;
+    justify-self: end;
+  }
+
+  .container_buttons {
     height: 100%;
-    overflow: auto;
     display: grid;
-}
-
-#CalibrationPoint {
-    --opacity: 0.0;
-}
-#Pt0 {
-    position:absolute;
-    margin: 0;
-    top: 5%;
-    left: 1%;
-    text-align: start;
-}
-
-#Pt1 {
-    position:absolute;
-    margin: 0;
-    top: 5%;
-    right: 4%;
-    text-align: end;
-}
-
-#Pt2, #Pt5, #CalibrationPoint {
-position: absolute;
-margin: 0;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-#Pt3 {
-    position:absolute;
-    margin: 0;
-    top: 50%;
-    left: 1%;
-    transform: translate(0%, -50%);
-    text-align: start;
-}
-
-#Pt4 {
-    position:absolute;
-    margin: 0;
-    top: 50%;
-    right: 5%;
-    transform: translate(0%, -50%);
-    text-align: end;
-}
-
-#Pt6 {
-    position: absolute;
-    margin: 0;
-    top: 90%;
-    left: 1%;
-    transform: translate(0%, -90%);
-    text-align: start;
-}
-#Pt7 {
-    position: absolute;
-    margin: 0;
-    top: 90%;
-    right: 4%;
-    transform: translate(0%, -90%);
-    text-align: end;
-
-}
+    grid-auto-flow: column row;
+    border: 2px solid #521634;
+    grid-template-areas: 
+    "first . second"
+    ". third ."
+    "fourth fifth six"
+    ". seven ."
+    "eigth . nine";
+  }

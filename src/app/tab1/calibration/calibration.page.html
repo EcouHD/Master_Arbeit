@@ -7,61 +7,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-<ion-grid>
-  <ion-row>
-    <ion-col>
-      <ion-button #Pt0 id="Pt0" shape="circle" size="small" (click)="buttonClicked(0)">
-        <ion-icon slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button #Pt1 id="Pt1" shape="circle" size="small" (click)="buttonClicked(1)">
-        <ion-icon slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-button #Pt2 id="Pt2" shape="circle" size="small" (click)="buttonClicked(2)">
-        <ion-icon slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-button #Pt3 id="Pt3" shape="circle" size="small" (click)="buttonClicked(3)">
-        <ion-icon slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button #CalibrationPoint id="CalibrationPoint" shape="circle" size="small" [disabled]="calibrationButtonDisable" (click)="buttonClicked(8)">
-        <ion-icon slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button #Pt4 id="Pt4" shape="circle" size="small" (click)="buttonClicked(4)">
-        <ion-icon slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-button #Pt5 id="Pt5" shape="circle" size="small" (click)="buttonClicked(5)">
-        <ion-icon slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      <ion-button #Pt6 id="Pt6" shape="circle" size="small" (click)="buttonClicked(6)">
-        <ion-icon slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button #Pt7 id="Pt7" shape="circle" size="small" (click)="buttonClicked(7)">
-        <ion-icon slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+  <div class="container_buttons">
+    @for(i of [0,1,2,3,4,5,6,7,8]; track $index) {
+      @if (i == 4) {
+        <div #dot class="dot calibration" display=none [attr.data-index]="i" (click)="buttonClicked($index)"></div>
+      }@else {
+        <div #dot class="dot state1" [attr.data-index]="i" (click)="buttonClicked($index)"></div>
+      }
+    }
+  </div>
 </ion-content>
