@@ -25,7 +25,9 @@ export class CalibrationPage implements OnInit {
   constructor(navController: NavController) {
     this.navController = navController
     webgazer.resume();
-    this.buttons.forEach(element => { element = 0 });
+    for(let i = 0; i < this.buttons.length; i++) {
+      this.buttons[i] = 0;
+    }
   }
 
   ngOnInit() {
@@ -69,7 +71,6 @@ export class CalibrationPage implements OnInit {
   }
 
   goBack() {
-    this.buttons = BUTTONS;
     this.navController.back();
   }
 }

@@ -79,11 +79,13 @@
 
   .dot:nth-child(1) {
     grid-area: first;
+    align-self: start;
   }
 
   .dot:nth-child(2) {
     grid-area: second;
     justify-self: end;
+    align-self: start;
   }
   .dot:nth-child(3) {
     grid-area: third;
@@ -107,16 +109,18 @@
   }
   .dot:nth-child(8) {
     grid-area: eigth;
+    align-self: end;
   }
   .dot:nth-child(9) {
     grid-area: nine;
     justify-self: end;
+    align-self: end;
   }
 
   .container_buttons {
     height: 100%;
     display: grid;
-    grid-auto-flow: column row;
+    align-items: center;
     border: 2px solid #521634;
     grid-template-areas: 
     "first . second"
