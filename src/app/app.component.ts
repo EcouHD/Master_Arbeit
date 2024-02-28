@@ -27,6 +27,7 @@ export class AppComponent {
         webgazer.util.bound(data);
       })
       .saveDataAcrossSessions(true)
+      .showVideo(false)
       .begin();
       await webgazer.pause()
     }
