@@ -34,7 +34,7 @@
       opacity:1;
     }
   }
-  .dot.calibration{
+  .dot.deactivated{
     display: none;
   }
   .dot.state1{
@@ -119,6 +119,7 @@
 
   .container_buttons {
     height: 100%;
+    z-index: 1;
     display: grid;
     align-items: center;
     border: 2px solid #521634;
@@ -128,4 +129,12 @@
     "fourth fifth six"
     ". seven ."
     "eigth . nine";
+  }
+
+  .plotting_canvas {
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+    position: absolute;
+    border: 2px solid #2fbd8b;
   }

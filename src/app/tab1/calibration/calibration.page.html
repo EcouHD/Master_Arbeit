@@ -7,10 +7,11 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <canvas class="plotting_canvas"></canvas>
   <div class="container_buttons">
     @for(i of [0,1,2,3,4,5,6,7,8]; track $index) {
       @if (i == 4) {
-        <div #dot class="dot calibration" display=none [attr.data-index]="i" (click)="buttonClicked($index)"></div>
+        <div #dot class="dot deactivated" display=none [attr.data-index]="i" (click)="buttonClicked($index)"></div>
       }@else {
         <div #dot class="dot state1" [attr.data-index]="i" (click)="buttonClicked($index)"></div>
       }
