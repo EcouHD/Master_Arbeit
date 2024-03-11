@@ -23,16 +23,50 @@ export class CalibrationPage implements OnInit {
   navController: any;
   alertController: any;
 
+  storingPoints = false;
+
   constructor(navController: NavController, alertController: AlertController) {
     this.navController = navController
     this.alertController = alertController;
-    webgazer.resume();
+
+    window.addEventListener('resize', this.resize, false);
+
+    var k = 0;
+    webgazer.setGazeListener((data: any, clock: any) => {
+      if (data == null) {
+        return;
+      }
+      webgazer.util.bound(data);
+      if (this.storingPoints) {
+        webgazer.storePoints(data.x, data.y, k);
+        console.log("Punkt " +  k + " x: " + data.x + ", y: " + data.y + " time: " + clock)
+        this.drawCoordinates('blue', data.x, data.y)
+        k++;
+        if (k == 50) {
+          k = 0;
+        }
+      }
+    }).resume()
     for (let i = 0; i < this.buttons.length; i++) {
       this.buttons[i] = 0;
     }
   }
 
   ngOnInit() {
+    this.drawCoordinates('blue',200,200)
+    // force one resize event to make the canvas the right size for rendering
+    window.dispatchEvent(new Event('resize'));
+  }
+
+  drawCoordinates(color: any, x: any, y: any) {
+    var canvas = document.getElementById("plotting_canvas") as HTMLCanvasElement
+    var context = canvas.getContext("2d")
+    if (context != null) {
+      context.fillStyle = color; // Red color
+      context.beginPath();
+      context.arc(x, y, 2, 0, Math.PI * 2, true);
+      context.fill();
+    }
   }
 
 
@@ -88,9 +122,9 @@ export class CalibrationPage implements OnInit {
 
   async presentAlert() {
     const alert = await this.alertController.create({
-      header: 'A Short Title Is Best',
-      subHeader: 'A Sub Header Is Optional',
-      message: 'A message should be a short, complete sentence.',
+      header: 'Calibration Finished',
+      subHeader: 'Start accuracy calculation',
+      message: 'Calibration finished with all points. Now stare at the middle button for 5 seconds until the accuracy is calculated!',
       buttons: [
         {
           text: 'Confirm',
@@ -115,34 +149,32 @@ export class CalibrationPage implements OnInit {
 
   setResult() {
     console.log("Start sleep.")
+    this.storingPoints = true
     this.sleep(5000).then(() => {
-      console.log("Dismissed!")
+      this.storingPoints = false
       var past50 = webgazer.getStoredPoints()
       console.log(webgazer.getStoredPoints())
       var precision_measurement = this.calculatePrecision(past50)
-      console.log("Genauigkeit: " + precision_measurement)
       this.presentAlertAccuracy(precision_measurement)
     });
 
   }
 
-  calculatePrecision(past50Array: any) {
+  calculatePrecision(past50Array: any) {  
     var windowHeight = window.innerHeight
     var windowWidth = window.innerWidth
 
     var x50 = past50Array[0]
     var y50 = past50Array[1]
 
-    var staringPointX = windowHeight / 2
-    var staringPointY = windowWidth / 2
+    var staringPointX = windowWidth / 2
+    var staringPointY = windowHeight / 2
 
     var precisionPercentages = new Array(50)
     this.calculatePrecisionPercentages(precisionPercentages, windowHeight, x50, y50, staringPointX, staringPointY)
     var precision = this.calculateAverage(precisionPercentages)
 
-    console.log("Window: " + windowHeight + " , " + windowWidth)
-    console.log("PastArray: " + past50Array)
-    console.log("PastArray (x,y): " + x50 + " , " + y50)
+    console.log(precisionPercentages)
 
     return Math.round(precision)
   }
@@ -153,6 +185,7 @@ export class CalibrationPage implements OnInit {
       var xDiff = staringPointX - x50[x];
       var yDiff = staringPointY - y50[x];
       var distance = Math.sqrt((xDiff * xDiff) + (yDiff * yDiff));
+      console.log("Distance: " + distance)
 
       // Calculate precision percentage
       var halfWindowHeight = windowHeight / 2;
@@ -177,6 +210,17 @@ export class CalibrationPage implements OnInit {
     }
     precision = precision / 50;
     return precision;
+  }
+
+  resize() {
+    var canvas = document.getElementById('plotting_canvas') as HTMLCanvasElement
+    var context = canvas.getContext('2d');
+    if (context != null) {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      console.log("Width: " + canvas.width + " ,height: " + canvas.height)
+    }
   }
 
   sleep(time: any) {

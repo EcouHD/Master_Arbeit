@@ -20,15 +20,10 @@ export class AppComponent {
 
     window.onload = async function() {
       await webgazer.setRegression('weightedRidge')
-      .setGazeListener(function(data: any, clock: any) {
-        if(data == null) {
-          return;
-        }
-        webgazer.util.bound(data);
-      })
       .saveDataAcrossSessions(true)
       .showVideo(false)
       .begin();
+
       await webgazer.pause()
     }
   }

@@ -18,8 +18,8 @@ export class Tab1Page {
 
   deleteCalibration() {
       console.log("deleteCalibration() method run")
-      webgazer.showVideo(false);
-      webgazer.pause();
+      webgazer.pause()
+      webgazer.clearData()
   }
 
 }

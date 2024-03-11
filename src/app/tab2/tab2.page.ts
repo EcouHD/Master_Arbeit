@@ -20,6 +20,7 @@ export class Tab2Page {
 
   deleteLocalData() {
     console.log("deleteLocalData() is called!")
+    webgazer.clearData()
   }
 
   showInformation() {
