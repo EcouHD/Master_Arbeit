@@ -37,9 +37,9 @@ export class CalibrationPage implements OnInit {
         return;
       }
       webgazer.util.bound(data);
+      console.log("Punkt " +  k + " x: " + data.x + ", y: " + data.y + " time: " + clock)
       if (this.storingPoints) {
         webgazer.storePoints(data.x, data.y, k);
-        console.log("Punkt " +  k + " x: " + data.x + ", y: " + data.y + " time: " + clock)
         this.drawCoordinates('blue', data.x, data.y)
         k++;
         if (k == 50) {

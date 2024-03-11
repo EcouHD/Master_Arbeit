@@ -8,7 +8,6 @@ import { NavController } from '@ionic/angular';
 })
 export class InformationPage implements OnInit {
 
-  @ViewChildren('dot') dots!: QueryList<ElementRef>;
   navController: NavController;
   
   constructor(navController: NavController) { this.navController = navController}
@@ -20,9 +19,6 @@ export class InformationPage implements OnInit {
     this.navController.back();
   }
   animate(index: number) {
-    const dot = this.dots.find((x: ElementRef, i: number) => i == index);
-    dot?.nativeElement.classList.remove('show');
-    dot?.nativeElement.classList.add('animate');
   }
 
 }
