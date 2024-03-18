@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: Tab3Page,
+  },
+  {
+    path: 'start',
+    loadChildren: () => import('./survey/survey.module').then( m => m.SurveyPageModule)
   }
 ];
 
