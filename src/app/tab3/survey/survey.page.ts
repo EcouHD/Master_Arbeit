@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-survey',
@@ -6,10 +7,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./survey.page.scss'],
 })
 export class SurveyPage implements OnInit {
-
-  constructor() { }
+  
+  navController: NavController;
+  
+  constructor(navController: NavController) { this.navController = navController}
 
   ngOnInit() {
+  }
+
+  goBack() {
+    this.navController.back();
+  }
+
+  goToPreviousPage() {
+    console.log("Back Button pressed.")
+  }
+  goToNextPage() {
+    console.log("Next Button pressed.")
   }
 
 }

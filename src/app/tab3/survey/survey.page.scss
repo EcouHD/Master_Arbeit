@@ -1,0 +1,40 @@
+.container_grid{
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    border: 2px solid rgb(56, 176, 56);
+}
+
+.radio_group {
+    flex-grow: 1;
+    border: 2px solid rgb(15, 53, 15);
+
+}
+
+ion-radio{
+    height: 110px;
+    width: 200px;
+    margin-left: calc(50% - 100px);
+    border: 2px solid rgb(15, 53, 15);
+}
+
+@media(max-height:820px) {
+ion-radio{
+    height: 90px;
+    border: 2px solid rgb(15, 53, 15);
+}
+}
+
+@media(max-height:720px) {
+    ion-radio{
+        height: 60px;
+        border: 2px solid rgb(15, 53, 15);
+    }
+    }
+
+    @media(max-height:550px) {
+        ion-radio{
+            height: 30px;
+            border: 2px solid rgb(15, 53, 15);
+        }
+        }
