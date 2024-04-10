@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from  '@angular/common/http';
 import { Injectable } from  '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
 providedIn:  'root'
@@ -7,8 +9,7 @@ providedIn:  'root'
 
 export class HttpService {
 
-// this url has later to be a fixed one where the server is running
-private serverUrl = 'http://192.168.2.131:8082';
+public currentSurveyName = 'default'
 
 constructor(private http: HttpClient) { }
 
@@ -30,16 +31,16 @@ sendData() {
 
   const options = {headers: headers}
 
-  return this.http.post(this.serverUrl, data, options)
+  return this.http.post(environment.uriToServer, data, options)
 }
 /**
  * Used to receive all available survey names from the database
  * @returns 
  */
-getSurveyNames() {
-  const url = this.serverUrl + "/index.php/survey/listNames"
+getSurveyNames(): Observable<any[]> {
+  const url = environment.uriToServer + "/index.php/survey/listNames"
   console.log("GET REQUEST for names of survey to " + url)
-  return this.http.get(url)
+  return this.http.get<any[]>(url)
 }
 
 /**
@@ -48,7 +49,7 @@ getSurveyNames() {
  * @returns 
  */
 getSurveyWithName(name: string) {
-var url = this.serverUrl + "/index.php/survey/getSelected"
+var url = environment.uriToServer + "/index.php/survey/getSelected"
 if(name!=null && name!='') {
   url += "?name=" + name 
 }

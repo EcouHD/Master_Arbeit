@@ -16,7 +16,7 @@
   <ion-grid class="ion-align-items-center">
     <ion-row class="ion-justify-content-center">
       <ion-col class="ion-text-center">
-        <ion-button shape="round" (click)="loadSurvey()">
+        <ion-button routerLink="/survey/load-survey" shape="round">
           Load survey
           <ion-icon slot="start" name="download"></ion-icon>
         </ion-button>
@@ -28,6 +28,13 @@
           Start survey
           <ion-icon slot="start" name="play"></ion-icon>
         </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-justify-content-center">
+      <ion-col class="ion-text-center">
+        <ion-text>
+          Selected Survey: {{globalVariablesService.selectedSurveyName}}
+        </ion-text>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -1,0 +1,19 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="goBack()">
+      <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+    </ion-buttons>
+    <ion-title>Load Survey</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list> 
+    <ion-item [button]="true" *ngFor="let name of names; let index" (click)="startSurvey(name)">
+      <ion-label>{{ name }}</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll>
+    <ion-infinite-scroll-content loadingText="Please wait..." loadingSpinner="bubbles"></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

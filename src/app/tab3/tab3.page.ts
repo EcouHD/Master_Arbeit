@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { GlobalVariablesService } from '../global-variables.service';
+
+
 
 @Component({
   selector: 'app-tab3',
@@ -7,14 +11,18 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-  constructor() {}
+  globalVariablesService: GlobalVariablesService;
+
+  constructor(globalVariablesService: GlobalVariablesService) {
+    this.globalVariablesService = globalVariablesService
+  }
 
   loadSurvey() {
 
   }
 
   startSurvey() {
-    
+
   }
 
 }
