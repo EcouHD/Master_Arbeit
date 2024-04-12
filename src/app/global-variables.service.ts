@@ -7,5 +7,7 @@ export class GlobalVariablesService {
 
   selectedSurveyName = 'default'
 
+  selectedSurvey = []
+
   constructor() { }
 }

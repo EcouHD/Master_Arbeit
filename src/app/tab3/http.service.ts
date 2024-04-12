@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders } from  '@angular/common/http';
 import { Injectable } from  '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Survey } from '../survey';
 
 @Injectable({
 providedIn:  'root'
@@ -37,10 +38,10 @@ sendData() {
  * Used to receive all available survey names from the database
  * @returns 
  */
-getSurveyNames(): Observable<any[]> {
+getSurveyNames(): Observable<Survey[]> {
   const url = environment.uriToServer + "/index.php/survey/listNames"
   console.log("GET REQUEST for names of survey to " + url)
-  return this.http.get<any[]>(url)
+  return this.http.get<Survey[]>(url)
 }
 
 /**
@@ -48,12 +49,12 @@ getSurveyNames(): Observable<any[]> {
  * @param name 
  * @returns 
  */
-getSurveyWithName(name: string) {
+getSurveyWithName(name: string): Observable<Survey[]> {
 var url = environment.uriToServer + "/index.php/survey/getSelected"
 if(name!=null && name!='') {
   url += "?name=" + name 
 }
 console.log("GET REQUEST for a survey to " + url)
-return this.http.get(url)
+return this.http.get<Survey[]>(url)
 }
 }

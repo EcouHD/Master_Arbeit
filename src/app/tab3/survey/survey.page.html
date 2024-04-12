@@ -11,11 +11,10 @@
   <ion-grid class="container_grid">
     <ion-row>
       <ion-col class="ion-text-center">
-        <ion-text>This is an example Text which in best case describes one question for the survey which can then be
-          answered from the user.</ion-text>
+        <ion-text>{{currentQuestion}}</ion-text>
       </ion-col>
     </ion-row>
-    <ion-radio-group class="radio_group" value="3">
+    <ion-radio-group class="radio_group" value="3" [(ngModel)]="selectedAnswer">
       <ion-row>
         <ion-col class="ion-padding-start ion-padding-end">
           <ion-radio justify="start" 
