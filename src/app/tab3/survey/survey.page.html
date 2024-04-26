@@ -17,28 +17,27 @@
     <ion-radio-group class="radio_group" value="3" [(ngModel)]="selectedAnswer">
       <ion-row>
         <ion-col class="ion-padding-start ion-padding-end">
-          <ion-radio justify="start" 
-          value="1" labelPlacement="end">1 - Strongly Disagree</ion-radio>
+          <ion-radio #radio1 id="radio1" justify="start" value="1" labelPlacement="end">1 - Strongly Disagree</ion-radio>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-padding-start ion-padding-end">
-          <ion-radio justify="start" value="2" labelPlacement="end">2 - Disagree</ion-radio>
+          <ion-radio id="radio2" justify="start" value="2" labelPlacement="end">2 - Disagree</ion-radio>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-padding-start ion-padding-end">
-          <ion-radio justify="start" value="3" labelPlacement="end">3 - Neutral</ion-radio>
+          <ion-radio id="radio3" justify="start" value="3" labelPlacement="end">3 - Neutral</ion-radio>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-padding-start ion-padding-end">
-          <ion-radio justify="start" value="4" labelPlacement="end">4 - Agree</ion-radio>
+          <ion-radio id="radio4" justify="start" value="4" labelPlacement="end">4 - Agree</ion-radio>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="ion-padding-start ion-padding-end">
-          <ion-radio justify="start" value="5" labelPlacement="end">5 - Strongly Agree</ion-radio>
+          <ion-radio id="radio5" justify="start" value="5" labelPlacement="end">5 - Strongly Agree</ion-radio>
         </ion-col>
       </ion-row>
     </ion-radio-group>
