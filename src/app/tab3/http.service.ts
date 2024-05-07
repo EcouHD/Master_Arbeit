@@ -10,30 +10,8 @@ import { Survey } from '../survey';
 
 export class HttpService {
 
-  public currentSurveyName = 'default'
-
   constructor(private http: HttpClient) { }
 
-  /**
-   * this is an example of how to send a simple post request
-   * should be changed to sending the gazeData array with the answer of the question_id
-   * or other stuff we need to send from application to server/database
-   * @returns 
-   */
-  sendData() {
-    const data = {
-      "username": "BobTest1",
-      "user_email": "bob@gmail.com",
-      "user_status": "0"
-    }
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-
-    const options = { headers: headers }
-
-    return this.http.post(environment.uriToServer, data, options)
-  }
   /**
    * Used to receive all available survey names from the database
    * @returns 
@@ -58,14 +36,17 @@ export class HttpService {
     return this.http.get<Survey[]>(url)
   }
 
-  sendQuestionResult(question_id: number, answer: number, gazeData: any[]) {
-    const url = environment.uriToServer + "/index.php/survey/sendQuestionResult"
-    const survey_id = 2;
-    const user_id = 1;
+  /**
+   * Used to send the result of the question with the needed parameters
+   * @param uuid @param survey_id @param question_id @param answer  @param gazeData 
+   * @returns 
+   */
+  sendQuestionResult(uuid: string, survey_id: number, question_id: number, answer: number, gazeData: any[]) {
+    const url = environment.uriToServer + "/index.php/result/sendQuestionResult"
 
     const data = {
       "survey_id": survey_id,
-      "user_id": user_id,
+      "UUID": uuid,
       "question_id": question_id,
       "answer": answer,
       "gazeData": gazeData
@@ -81,23 +62,32 @@ export class HttpService {
     return this.http.post(url, data, options)
   }
 
-  setUserData(user_id: number) {
+  /**
+   * Used to create the user with the generated uuid
+   * @param uuid 
+   * @returns 
+   */
+  setUserData(uuid: string) {
     var url = environment.uriToServer + "/index.php/user/createUser"
 
-    if (user_id != null && user_id != undefined) {
-      url += "?user=" + user_id
+    if (uuid != null && uuid != undefined) {
+      url += "?uuid=" + uuid
     }
 
     console.log("POST REQUEST to send base user data to " + url)
     return this.http.post(url, {})
   }
 
-  updateUserData(user_id: number, age: number, rectArr: DOMRect[]) {
+  /**
+   * Used to update the position and size of radioButtons of user
+   * @param uuid @param age @param rectArr  
+   * @returns 
+   */
+  updateUserData(uuid: string, age: number, rectArr: DOMRect[]) {
     const url = environment.uriToServer + "/index.php/user/updateData"
 
     const data = {
-      "user_id": user_id,
-      "age": age,
+      "UUID": uuid,
       "radioButton1_x": rectArr[0].x,
       "radioButton1_y": rectArr[0].y,
       "radioButton1_width": rectArr[0].width,
@@ -130,23 +120,17 @@ export class HttpService {
     return this.http.patch(url, data, options)
   }
 
-  setUserAge(user_id: number, age: number) {
+  /**
+   * Used to set the age of the user
+   * @param uuid @param age 
+   * @returns 
+   */
+  setUserAge(uuid: number, age: number) {
     var url = environment.uriToServer + "/index.php/user/setAge"
 
-    if (user_id != null && user_id != undefined && age != null && age != undefined) {
-      url += "?user=" + user_id + "&age=" + age
+    if (uuid != null && uuid != undefined && age != null && age != undefined) {
+      url += "?uuid=" + uuid + "&age=" + age
     }
-   
-    const data = {
-      "user_id": user_id,
-      "age": age,
-    }
-
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-
-    const options = { headers: headers }
 
     console.log("PATCH REQUEST to send base user data to " + url)
     return this.http.patch(url, {})

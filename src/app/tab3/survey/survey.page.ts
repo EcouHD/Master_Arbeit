@@ -61,8 +61,7 @@ export class SurveyPage implements OnInit {
         console.log(survey)
         this.currentSurvey = survey[0]
         this.listOfQuestionsArr = JSON.parse(this.currentSurvey.list_of_questions)
-        // probably not needed to sort if you just get the question_id before sending the answer!
-        // this.listOfQuestionsArr.sort((a,b) => a.question_id - b.question_id)
+        this.globalVariablesService.selectedSurvey_id = this.currentSurvey.survey_id
         this.currentQuestion = this.listOfQuestionsArr[this.indexQuestions].question
       }
     )
@@ -87,7 +86,7 @@ export class SurveyPage implements OnInit {
     // the answer with the gazedata should be send to the server that it can handle the data
     // and put it in the database. Reset gazeData array for next question.
     // Consider resending of information on same question_id!
-    this.httpService.sendQuestionResult(this.listOfQuestionsArr[this.indexQuestions].question_id, +this.selectedAnswer, gazeData).subscribe(
+    this.httpService.sendQuestionResult(this.globalVariablesService.uuid, this.globalVariablesService.selectedSurvey_id ,this.listOfQuestionsArr[this.indexQuestions].question_id, +this.selectedAnswer, gazeData).subscribe(
       (response) => { console.log(response) }
     )
     gazeData = []
@@ -107,9 +106,8 @@ export class SurveyPage implements OnInit {
 
     if (rect1 != undefined && rect2 != undefined && rect3 != undefined && rect4 != undefined && rect5 != undefined) {
       var rectArr: DOMRect[] = [rect1, rect2, rect3, rect4, rect5]
-      const id = 1
       const age = 22
-      this.httpService.updateUserData(id, age, rectArr).subscribe(
+      this.httpService.updateUserData(this.globalVariablesService.uuid, age, rectArr).subscribe(
         (response) => { console.log(response) }
       )
 

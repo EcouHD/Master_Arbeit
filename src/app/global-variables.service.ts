@@ -5,7 +5,11 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalVariablesService {
 
+  uuid = ''
+
   selectedSurveyName = 'default'
+
+  selectedSurvey_id = 0
 
   selectedSurvey = []
 
