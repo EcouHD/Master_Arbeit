@@ -80,10 +80,10 @@ export class HttpService {
 
   /**
    * Used to update the position and size of radioButtons of user
-   * @param uuid @param age @param rectArr  
+   * @param uuid  @param rectArr  
    * @returns 
    */
-  updateUserData(uuid: string, age: number, rectArr: DOMRect[]) {
+  updateUserData(uuid: string, rectArr: DOMRect[]) {
     const url = environment.uriToServer + "/index.php/user/updateData"
 
     const data = {

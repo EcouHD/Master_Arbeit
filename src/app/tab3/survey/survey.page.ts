@@ -37,7 +37,12 @@ export class SurveyPage implements OnInit {
     this.httpService = httpService
     this.globalVariablesService = globalVariablesService
 
-    // window.addEventListener('resize', this.resize, false);
+
+    const debouncedFunction = this.debounce(() => {
+        this.resize()
+    }, 300);
+
+    window.addEventListener('resize', debouncedFunction, false);
 
     webgazer.setGazeListener((data: any, clock: any) => {
       if (data == null) {
@@ -50,8 +55,8 @@ export class SurveyPage implements OnInit {
   }
 
   ngAfterViewInit() {
-    // still not working --> httpService is undefined!
-    // setTimeout(this.resize, 100)
+    // force one resize function for giving information to database
+    setTimeout(this.resize.bind(this), 1000)
   }
 
   ngOnInit() {
@@ -60,7 +65,7 @@ export class SurveyPage implements OnInit {
       survey => {
         console.log(survey)
         this.currentSurvey = survey[0]
-        this.listOfQuestionsArr = JSON.parse(this.currentSurvey.list_of_questions)
+        this.listOfQuestionsArr = JSON.parse(this.currentSurvey.list_of_questions) // do we have to sort it?
         this.globalVariablesService.selectedSurvey_id = this.currentSurvey.survey_id
         this.currentQuestion = this.listOfQuestionsArr[this.indexQuestions].question
       }
@@ -72,9 +77,6 @@ export class SurveyPage implements OnInit {
   }
 
   goToPreviousPage() {
-    // recover the correct question id that the database changes to the correct result!
-    // reset gazeData array
-    // we have to ensure that the next button handles the case of resending information!
     if ((this.indexQuestions - 1) > -1) {
       this.indexQuestions--
       this.currentQuestion = this.listOfQuestionsArr[this.indexQuestions].question
@@ -82,10 +84,6 @@ export class SurveyPage implements OnInit {
     }
   }
   goToNextPage() {
-    this.resize()
-    // the answer with the gazedata should be send to the server that it can handle the data
-    // and put it in the database. Reset gazeData array for next question.
-    // Consider resending of information on same question_id!
     this.httpService.sendQuestionResult(this.globalVariablesService.uuid, this.globalVariablesService.selectedSurvey_id ,this.listOfQuestionsArr[this.indexQuestions].question_id, +this.selectedAnswer, gazeData).subscribe(
       (response) => { console.log(response) }
     )
@@ -97,6 +95,10 @@ export class SurveyPage implements OnInit {
     }
   }
 
+  /**
+   * function to help getting all information about the radiobuttons
+   * and sending it with an http request to server
+   */
   resize() {
     const rect1 = document.getElementById('radio1')?.getBoundingClientRect()
     const rect2 = document.getElementById('radio2')?.getBoundingClientRect()
@@ -106,8 +108,7 @@ export class SurveyPage implements OnInit {
 
     if (rect1 != undefined && rect2 != undefined && rect3 != undefined && rect4 != undefined && rect5 != undefined) {
       var rectArr: DOMRect[] = [rect1, rect2, rect3, rect4, rect5]
-      const age = 22
-      this.httpService.updateUserData(this.globalVariablesService.uuid, age, rectArr).subscribe(
+      this.httpService.updateUserData(this.globalVariablesService.uuid, rectArr).subscribe(
         (response) => { console.log(response) }
       )
 
@@ -116,5 +117,23 @@ export class SurveyPage implements OnInit {
     }
 
   }
+
+  /**
+   * debounce function used for the window resizing that we send less http requests to server
+   * @param func
+   * @param wait 
+   * @returns 
+   */
+  debounce(func: Function, wait: number) {
+    let timeout: NodeJS.Timeout;
+    return (...args:any) => {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(context, args);
+        }, wait);
+    };
+}
+
 
 }
