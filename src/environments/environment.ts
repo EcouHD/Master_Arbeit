@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  uriToServer: 'http://192.168.2.106:8082'
+  uriToServer: 'http://192.168.2.103:8082'
 };
 
 /*

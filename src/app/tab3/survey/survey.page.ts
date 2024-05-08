@@ -26,6 +26,7 @@ export class SurveyPage implements OnInit {
 
   indexQuestions = 0
   listOfQuestionsArr: Question[] = []
+  listOfAnswers: string[] = []
   currentSurvey: Survey = {
     survey_id: 0,
     name: '',
@@ -68,6 +69,8 @@ export class SurveyPage implements OnInit {
         this.listOfQuestionsArr = JSON.parse(this.currentSurvey.list_of_questions) // do we have to sort it?
         this.globalVariablesService.selectedSurvey_id = this.currentSurvey.survey_id
         this.currentQuestion = this.listOfQuestionsArr[this.indexQuestions].question
+        this.listOfAnswers = new Array(this.listOfQuestionsArr.length)
+        this.listOfAnswers.fill("3")
       }
     )
   }
@@ -77,21 +80,31 @@ export class SurveyPage implements OnInit {
   }
 
   goToPreviousPage() {
+    this.listOfAnswers[this.indexQuestions] = this.selectedAnswer
     if ((this.indexQuestions - 1) > -1) {
       this.indexQuestions--
       this.currentQuestion = this.listOfQuestionsArr[this.indexQuestions].question
-      // recover previous ticked answer?
+      this.selectedAnswer = this.listOfAnswers[this.indexQuestions]
     }
   }
   goToNextPage() {
+    this.listOfAnswers[this.indexQuestions] = this.selectedAnswer
+
     this.httpService.sendQuestionResult(this.globalVariablesService.uuid, this.globalVariablesService.selectedSurvey_id ,this.listOfQuestionsArr[this.indexQuestions].question_id, +this.selectedAnswer, gazeData).subscribe(
       (response) => { console.log(response) }
     )
+
     gazeData = []
+
     if ((this.indexQuestions + 1 < this.listOfQuestionsArr.length)) {
       this.indexQuestions++
       this.currentQuestion = this.listOfQuestionsArr[this.indexQuestions].question
-
+      this.selectedAnswer = this.listOfAnswers[this.indexQuestions]
+    } else {
+      console.log("Survey finished!")
+      // TODO: create alert with confirmation if survey is finished from user and leave survey screen
+      // --> currently user can just start survey again with same uuid and updating the answers
+      // should there be a lock to the finished surveys or how should this be done?
     }
   }
 
