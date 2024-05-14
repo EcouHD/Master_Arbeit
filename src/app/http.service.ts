@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Survey } from '../survey';
+import { Survey } from './survey';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { HttpService } from '../http.service';
+import { HttpService } from '../../http.service';
 import { environment } from 'src/environments/environment';
 import { GlobalVariablesService } from 'src/app/global-variables.service';
 

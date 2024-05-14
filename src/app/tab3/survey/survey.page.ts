@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
-import { HttpService } from '../http.service';
+import { HttpService } from '../../http.service';
 import { GlobalVariablesService } from 'src/app/global-variables.service';
 import { Survey } from 'src/app/survey';
 import { Question } from 'src/app/question'
