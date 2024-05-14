@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
+import { GlobalVariablesService } from 'src/app/global-variables.service';
 
 declare var webgazer: any;
 
@@ -22,12 +23,14 @@ export class CalibrationPage implements OnInit {
 
   navController: any;
   alertController: any;
+  globalVariablesService: GlobalVariablesService;
 
   storingPoints = false;
 
-  constructor(navController: NavController, alertController: AlertController) {
+  constructor(navController: NavController, alertController: AlertController, globalVariablesService: GlobalVariablesService) {
     this.navController = navController
     this.alertController = alertController;
+    this.globalVariablesService = globalVariablesService;
 
     window.addEventListener('resize', this.resize, false);
 
@@ -37,7 +40,7 @@ export class CalibrationPage implements OnInit {
         return;
       }
       webgazer.util.bound(data);
-      console.log("Punkt " +  k + " x: " + data.x + ", y: " + data.y + " time: " + clock)
+      console.log("Punkt " + k + " x: " + data.x + ", y: " + data.y + " time: " + clock)
       if (this.storingPoints) {
         webgazer.storePoints(data.x, data.y, k);
         this.drawCoordinates('blue', data.x, data.y)
@@ -53,7 +56,7 @@ export class CalibrationPage implements OnInit {
   }
 
   ngOnInit() {
-    this.drawCoordinates('blue',200,200)
+    this.drawCoordinates('blue', 200, 200)
     // force one resize event to make the canvas the right size for rendering
     window.dispatchEvent(new Event('resize'));
   }
@@ -141,7 +144,14 @@ export class CalibrationPage implements OnInit {
     const alert = await this.alertController.create({
       header: 'Acc',
       message: 'Accuracy is ' + precision_measurement,
-      buttons: ['OK'],
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.globalVariablesService.infoLabel = 'Calibration done.';
+          }
+        }
+      ],
     });
 
     await alert.present();
@@ -160,7 +170,7 @@ export class CalibrationPage implements OnInit {
 
   }
 
-  calculatePrecision(past50Array: any) {  
+  calculatePrecision(past50Array: any) {
     var windowHeight = window.innerHeight
     var windowWidth = window.innerWidth
 

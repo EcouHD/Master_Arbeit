@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GlobalVariablesService } from '../global-variables.service';
 declare var webgazer: any;
 
 @Component({
@@ -8,7 +9,11 @@ declare var webgazer: any;
 })
 export class Tab2Page {
 
-  constructor() {}
+  globalVariablesService: GlobalVariablesService
+
+  constructor(globalVariablesService: GlobalVariablesService) {
+    this.globalVariablesService = globalVariablesService
+  }
 
   startWebgazer() {
     webgazer.begin();
