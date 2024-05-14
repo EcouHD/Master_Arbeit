@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { HttpService } from '../http.service';
 import { GlobalVariablesService } from 'src/app/global-variables.service';
 import { Survey } from 'src/app/survey';
@@ -18,6 +18,7 @@ export class SurveyPage implements OnInit {
   navController: NavController
   httpService: HttpService
   globalVariablesService: GlobalVariablesService
+  alertController: AlertController
 
   @ViewChild('radio1') radio1!: ElementRef
 
@@ -33,10 +34,11 @@ export class SurveyPage implements OnInit {
     list_of_questions: ''
   }
 
-  constructor(navController: NavController, httpService: HttpService, globalVariablesService: GlobalVariablesService) {
+  constructor(navController: NavController, httpService: HttpService, globalVariablesService: GlobalVariablesService, alertController: AlertController) {
     this.navController = navController
     this.httpService = httpService
     this.globalVariablesService = globalVariablesService
+    this.alertController = alertController
 
 
     const debouncedFunction = this.debounce(() => {
@@ -76,7 +78,7 @@ export class SurveyPage implements OnInit {
   }
 
   goBack() {
-    this.navController.back();
+    this.presentCancelSurveyAlert()
   }
 
   goToPreviousPage() {
@@ -101,13 +103,59 @@ export class SurveyPage implements OnInit {
       this.currentQuestion = this.listOfQuestionsArr[this.indexQuestions].question
       this.selectedAnswer = this.listOfAnswers[this.indexQuestions]
     } else {
-      console.log("Survey finished!")
-      // TODO: create alert with confirmation if survey is finished from user and leave survey screen
       // --> currently user can just start survey again with same uuid and updating the answers
       // should there be a lock to the finished surveys or how should this be done?
+
+      this.presentSurveyFinishedAlert()
     }
   }
 
+  /**
+   * alert to show if user is on last question and is pressing the next button
+   */
+  async presentSurveyFinishedAlert() {
+    const alert = await this.alertController.create({
+      header: `Survey ${this.currentSurvey.name} finished`,
+      message: 'Do you want to submit the survey?',
+      buttons: [
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.navController.back();
+          }
+        },
+        {
+          text: 'Cancel'
+        }
+      ],
+    });
+
+    await alert.present()
+  }
+
+  /**
+   * alert to show if user is trying to navigate back to the other screen!
+   */
+  async presentCancelSurveyAlert() {
+    const alert = await this.alertController.create({
+      header: `Care! You are about to cancel the survey!`,
+      message: 'Do you really want to cancel the survey?',
+      buttons: [
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.navController.back();
+          }
+        },
+        {
+          text: 'Cancel'
+        }
+      ],
+    });
+
+    await alert.present()
+  }
+ 
   /**
    * function to help getting all information about the radiobuttons
    * and sending it with an http request to server
