@@ -33,7 +33,7 @@ export class LoadSurveyPage implements OnInit {
     this.navController.back()
   }
 
-  startSurvey(name: string) {
+  selectSurvey(name: string) {
     this.globalVariablesService.selectedSurveyName = name;
     console.log("Survey clicked with name: " + name)
   }

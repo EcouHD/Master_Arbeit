@@ -149,6 +149,7 @@ export class CalibrationPage implements OnInit {
           text: 'OK',
           handler: () => {
             this.globalVariablesService.infoLabel = 'Calibration done.';
+            this.goBack()
           }
         }
       ],
