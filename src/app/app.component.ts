@@ -18,12 +18,20 @@ export class AppComponent {
       navController.back();
     });
 
-    let myuuid = uuidv4();
+    let myuuid = localStorage.getItem('uuid');
+
+    if (!myuuid) {
+      myuuid = uuidv4();
+      localStorage.setItem('uuid', myuuid);
+    }
+
     console.log(myuuid)
     this.httpService.setUserData(myuuid).subscribe(
       response => {
         console.log(response)
-        this.globalVariablesService.uuid = myuuid
+        if (myuuid != null) {
+          this.globalVariablesService.uuid = myuuid
+        }
       }
     )
 

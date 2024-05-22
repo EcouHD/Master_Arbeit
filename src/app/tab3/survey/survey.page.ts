@@ -186,7 +186,7 @@ export class SurveyPage implements OnInit {
    * @returns 
    */
   debounce(func: Function, wait: number) {
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setInterval> ;
     return (...args:any) => {
         const context = this;
         clearTimeout(timeout);

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
+import { GlobalVariablesService } from '../global-variables.service';
 
 declare var webgazer: any;
 
@@ -10,7 +11,11 @@ declare var webgazer: any;
 })
 export class Tab1Page {
 
-  constructor() { }
+  globalVariablesService: GlobalVariablesService
+
+  constructor(globalVariablesService: GlobalVariablesService) {
+    this.globalVariablesService = globalVariablesService
+  }
 
   startCalibration() {
     
@@ -18,8 +23,8 @@ export class Tab1Page {
 
   deleteCalibration() {
       console.log("deleteCalibration() method run")
-      webgazer.pause()
       webgazer.clearData()
+      this.globalVariablesService.infoLabel = "Currently not calibrated. Continue with calibration."
   }
 
 }

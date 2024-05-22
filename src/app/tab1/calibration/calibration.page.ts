@@ -61,6 +61,10 @@ export class CalibrationPage implements OnInit {
     window.dispatchEvent(new Event('resize'));
   }
 
+  ngOnDestroy() {
+    webgazer.pause()
+  }
+
   drawCoordinates(color: any, x: any, y: any) {
     var canvas = document.getElementById("plotting_canvas") as HTMLCanvasElement
     var context = canvas.getContext("2d")
