@@ -3,8 +3,7 @@ import { NavController, Platform } from '@ionic/angular';
 import { v4 as uuidv4 } from 'uuid';
 import { HttpService } from './http.service';
 import { GlobalVariablesService } from './global-variables.service';
-
-declare var webgazer: any;
+import { WebgazerService } from './webgazer.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,7 @@ declare var webgazer: any;
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private platform: Platform, private navController: NavController, private httpService: HttpService, private globalVariablesService: GlobalVariablesService) {
+  constructor(private platform: Platform, private navController: NavController, private httpService: HttpService, private globalVariablesService: GlobalVariablesService, private webgazerService: WebgazerService) { 
     this.platform.backButton.subscribeWithPriority(10, () => {
       console.log("Handler called!");
       navController.back();
@@ -40,12 +39,9 @@ export class AppComponent {
     console.log("height: " + window.innerHeight + " width: " + window.innerWidth);
 
     window.onload = async function () {
-      await webgazer.setRegression('weightedRidge')
-        .saveDataAcrossSessions(true)
-        .showVideo(false)
-        .begin();
+      await webgazerService.begin()
 
-      await webgazer.pause()
+      await webgazerService.pause()
     }
   }
 

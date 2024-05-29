@@ -7,7 +7,9 @@ export class GlobalVariablesService {
 
   uuid = ''
 
-  infoLabel = 'Currently not calibrated. Continue with calibration.'  
+  infoLabel = 'Currently not calibrated. Continue with calibration.'
+  
+  storingPoints = false
 
   selectedSurveyName = 'default'
 

@@ -4,8 +4,8 @@ import { HttpService } from '../../http.service';
 import { GlobalVariablesService } from 'src/app/global-variables.service';
 import { Survey } from 'src/app/survey';
 import { Question } from 'src/app/question'
+import { WebgazerService } from 'src/app/webgazer.service';
 
-declare var webgazer: any;
 var gazeData: any[] = [];
 
 @Component({
@@ -17,6 +17,7 @@ export class SurveyPage implements OnInit {
 
   navController: NavController
   httpService: HttpService
+  webgazerService: WebgazerService
   globalVariablesService: GlobalVariablesService
   alertController: AlertController
 
@@ -34,9 +35,10 @@ export class SurveyPage implements OnInit {
     list_of_questions: ''
   }
 
-  constructor(navController: NavController, httpService: HttpService, globalVariablesService: GlobalVariablesService, alertController: AlertController) {
+  constructor(navController: NavController, httpService: HttpService, webgazerService:WebgazerService, globalVariablesService: GlobalVariablesService, alertController: AlertController) {
     this.navController = navController
     this.httpService = httpService
+    this.webgazerService  = webgazerService
     this.globalVariablesService = globalVariablesService
     this.alertController = alertController
 
@@ -47,19 +49,15 @@ export class SurveyPage implements OnInit {
 
     window.addEventListener('resize', debouncedFunction, false);
 
-    webgazer.setGazeListener((data: any, clock: any) => {
-      if (data == null) {
-        return;
-      }
-      webgazer.util.bound(data);
-      gazeData.push(data)
-
-    }).resume()
+    
   }
 
   ngAfterViewInit() {
     // force one resize function for giving information to database
     setTimeout(this.resize.bind(this), 1000)
+
+    this.webgazerService.setGazeListenerForSurvey(gazeData)
+    this.webgazerService.resume()
   }
 
   ngOnInit() {
@@ -75,6 +73,11 @@ export class SurveyPage implements OnInit {
         this.listOfAnswers.fill("3")
       }
     )
+  }
+
+  ngOnDestroy() {
+    console.log("Working")
+    this.webgazerService.pause()
   }
 
   goBack() {
@@ -96,7 +99,9 @@ export class SurveyPage implements OnInit {
       (response) => { console.log(response) }
     )
 
-    gazeData = []
+    console.log(gazeData)
+
+    gazeData.splice(0, gazeData.length)
 
     if ((this.indexQuestions + 1 < this.listOfQuestionsArr.length)) {
       this.indexQuestions++

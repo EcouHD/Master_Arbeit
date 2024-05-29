@@ -1,8 +1,7 @@
 import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { GlobalVariablesService } from 'src/app/global-variables.service';
-
-declare var webgazer: any;
+import { WebgazerService } from 'src/app/webgazer.service';
 
 const BUTTONS = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -24,35 +23,30 @@ export class CalibrationPage implements OnInit {
   navController: any;
   alertController: any;
   globalVariablesService: GlobalVariablesService;
+  webgazerService: WebgazerService;
 
   storingPoints = false;
 
-  constructor(navController: NavController, alertController: AlertController, globalVariablesService: GlobalVariablesService) {
+  constructor(navController: NavController, alertController: AlertController, globalVariablesService: GlobalVariablesService, webgazerService: WebgazerService) {
     this.navController = navController
     this.alertController = alertController;
     this.globalVariablesService = globalVariablesService;
+    this.webgazerService = webgazerService;
 
     window.addEventListener('resize', this.resize, false);
 
-    var k = 0;
-    webgazer.setGazeListener((data: any, clock: any) => {
-      if (data == null) {
-        return;
-      }
-      webgazer.util.bound(data);
-      console.log("Punkt " + k + " x: " + data.x + ", y: " + data.y + " time: " + clock)
-      if (this.storingPoints) {
-        webgazer.storePoints(data.x, data.y, k);
-        this.drawCoordinates('blue', data.x, data.y)
-        k++;
-        if (k == 50) {
-          k = 0;
-        }
-      }
-    }).resume()
+    globalVariablesService.storingPoints = false
+
     for (let i = 0; i < this.buttons.length; i++) {
       this.buttons[i] = 0;
     }
+  }
+  ngAfterViewInit() {
+    this.webgazerService.getData().subscribe(data => {
+      this.drawCoordinates('blue', data.x, data.y)
+    })
+    this.webgazerService.setGazeListenerForCalibration()
+    this.webgazerService.resume()
   }
 
   ngOnInit() {
@@ -62,7 +56,7 @@ export class CalibrationPage implements OnInit {
   }
 
   ngOnDestroy() {
-    webgazer.pause()
+    this.webgazerService.pause()
   }
 
   drawCoordinates(color: any, x: any, y: any) {
@@ -164,11 +158,11 @@ export class CalibrationPage implements OnInit {
 
   setResult() {
     console.log("Start sleep.")
-    this.storingPoints = true
+    this.globalVariablesService.storingPoints = true
     this.sleep(5000).then(() => {
-      this.storingPoints = false
-      var past50 = webgazer.getStoredPoints()
-      console.log(webgazer.getStoredPoints())
+      this.globalVariablesService.storingPoints = false
+      var past50 = this.webgazerService.getStoredPoints()
+      console.log(this.webgazerService.getStoredPoints())
       var precision_measurement = this.calculatePrecision(past50)
       this.presentAlertAccuracy(precision_measurement)
     });
