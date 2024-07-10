@@ -22,6 +22,7 @@ export class WebgazerService {
     return webgazer.setRegression('weightedRidge')
       .saveDataAcrossSessions(true)
       .showVideo(false)
+      .showPredictionPoints(false)
       .begin();
   }
 

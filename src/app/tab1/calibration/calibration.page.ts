@@ -47,6 +47,7 @@ export class CalibrationPage implements OnInit {
     })
     this.webgazerService.setGazeListenerForCalibration()
     this.webgazerService.resume()
+    
   }
 
   ngOnInit() {
