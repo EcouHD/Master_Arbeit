@@ -76,7 +76,6 @@ export class SurveyPage implements OnInit {
   }
 
   ngOnDestroy() {
-    console.log("Working")
     this.webgazerService.pause()
   }
 
